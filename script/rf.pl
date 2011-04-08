@@ -36,10 +36,13 @@ my $rf = Ratfinder->new;
 #print "My plugins are: ".join(", ", $rf->_plugin_locator->plugins)."\n";
 #my @a = $rf->_plugin_locator->plugins;
 #$rf->load_plugins(map ("+$_",@a));
-say $rf->first_token($token);
-#say $rf->accepts($token);
 
+say $rf->first_token($token);
+
+#say $rf->accepts($token);
 #say $rf->accepts('dict');
+
+#say $rf->generate_classes
 
 
 __END__#{{{

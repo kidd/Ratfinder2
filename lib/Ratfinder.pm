@@ -3,27 +3,37 @@ package Ratfinder;
 use Moose;
 use feature ':5.10';
 use Data::Dumper;
+use Ratfinder::Command;
+use Ratfinder::GUI;
+
 with 'MooseX::Object::Pluggable';
 
-#sub get_plugins {
-	#my $self = shift;
-	#print "My plugins are: ".join(", ", $self->_plugin_locator->plugins)."\n";
-	#[ $self->_plugin_locator->plugins ]
-#}
+has gui => (is =>'ro',
+			isa =>'Ratfinder::GUI', 
+			default => sub {Ratfinder::GUI->new});
 
-#has plugins => (is =>'ro', isa =>'ArrayRef', default => \&get_plugins);
+has my_plugins => (is =>'ro',
+					isa =>'ArrayRef',
+					default => \&generate_classes);
+
+sub generate_classes {
+	my ($self) = @_;
+	my @a = Ratfinder::Command->new->_plugin_locator->plugins;
+	[map {my $tmp =Ratfinder::Command->new(gui=>$self->gui);
+			$tmp->load_plugin("+$_");
+			$tmp }
+					@a]
+}
 
 sub first_token {
 	my $self = shift;
 	my $token = shift;
-	print "My plugins are: ".join(", ", $self->_plugin_locator->plugins)."\n";
-	my @a = $self->_plugin_locator->plugins;
-
-	$self->load_plugins(map ("+$_",@a));
-	for (@a){
+	print "My plugins are: ", map($_->_original_class_name,
+		@{$self->my_plugins}) ,"\n";
+	for (@{$self->my_plugins}){
 		if ($_->accepts($token)){
 			say $_ , ' accepts it';
-				#$_->$token;
+				$_->$token;
 		}
 	}
 }
