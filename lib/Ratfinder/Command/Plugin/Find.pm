@@ -1,11 +1,11 @@
-package Ratfinder::Plugin::Dictionary;
+package Ratfinder::Command::Plugin::Find;
 use Moose::Role;
 use feature ':5.10';
 
 
 
 
-sub keywords { qw/dict/ } ;
+sub keywords { qw/find/ } ;
 sub pretty{ print "I am pretty" }
 
 sub accepts {
@@ -19,9 +19,9 @@ sub foo {
 	'subclass'
 }
 
-sub dict {
+sub find {
 	my $self = shift;
-	say "I'm on dict";
+	say "I'm on find";
 }
 
 #__PACKAGE__->meta->make_immutable;
