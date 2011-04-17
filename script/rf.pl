@@ -38,6 +38,7 @@ my $rf = Ratfinder->new;
 #$rf->load_plugins(map ("+$_",@a));
 
 say $rf->first_token($token);
+#say $rf->who_matches($token);
 
 #say $rf->accepts($token);
 #say $rf->accepts('dict');

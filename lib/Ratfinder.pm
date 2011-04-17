@@ -38,8 +38,17 @@ sub first_token {
 	}
 }
 
+sub who_matches {
+	my ($self, $word) = @_;
+	return first(grep {$_->matches($word) } @{$self->my_plugins});
+}
+
 sub foo {
 	'hola'
+}
+
+sub first {
+	return $_[0];
 }
 
 
