@@ -4,12 +4,12 @@ use Moose;
 
 sub prompt {
 	my ($self, $text) = @_ ;
-	system("ratpoison -c 'echo $text'")
+	`ratpoison -c 'prompt $text'`;
 }
 
 sub print {
 	my ($self, $text) = @_ ;
-	`ratpoison -c "prompt $text"`;
+	`ratpoison -c "echo $text"`;
 }
 
 no Moose;
