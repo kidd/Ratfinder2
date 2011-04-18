@@ -3,6 +3,7 @@
 #use rlib;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
+use lib "/home/kidd/programmingStuff/perl/Ratfinder2/lib"; 
 
 
 use feature ':5.10';
@@ -25,10 +26,8 @@ GetOptions (
 	'man' => \&man,
 );
 
-my $token = <STDIN>;
-chomp $token;
-
 my $rf = Ratfinder->new;
+my $token = $rf->gui->prompt($rf->keywords);
 #say $rf->foo;
 #$rf->load_plugin("Dictionary");
 #say $rf->foo;

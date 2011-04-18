@@ -5,16 +5,17 @@ use feature ':5.10';
 use Data::Dumper;
 use Ratfinder::Command;
 use Ratfinder::GUI;
+use Ratfinder::GUI::Dmenu;
 
 with 'MooseX::Object::Pluggable';
 
 has gui => (is =>'ro',
-			isa =>'Ratfinder::GUI', 
-			default => sub {Ratfinder::GUI->new});
+            isa =>'Ratfinder::GUI',
+            default => sub {Ratfinder::GUI::Dmenu->new});
 
 has my_plugins => (is =>'ro',
-					isa =>'ArrayRef',
-					default => \&generate_classes);
+                   isa =>'ArrayRef',
+                   default => \&generate_classes);
 
 sub generate_classes {
 	my ($self) = @_;
@@ -36,6 +37,11 @@ sub first_token {
 				$_->$token;
 		}
 	}
+}
+
+sub keywords {
+  my $self = shift;
+  my @a = map { $_->keywords }  @{$self->my_plugins};
 }
 
 sub who_matches {
