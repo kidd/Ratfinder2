@@ -27,40 +27,27 @@ sub generate_classes {
 }
 
 sub first_token {
-	my $self = shift;
-	my $token = shift;
-	print "My plugins are: ", map($_->_original_class_name,
-		@{$self->my_plugins}) ,"\n";
-	for (@{$self->my_plugins}){
-		if ($_->accepts($token)){
-			say $_ , ' accepts it';
-				$_->$token;
-		}
-	}
+  my $self = shift;
+  my $token = shift;
+  print "My plugins are: ", map($_->_original_class_name, @{$self->my_plugins}) ,"\n";
+  for (@{$self->my_plugins}) {
+    say $token;
+    if ($_->accepts($token)) {
+      say $_ , ' accepts it';
+      $_->$token;
+    }
+  }
 }
 
 sub keywords {
   my $self = shift;
-  my @a = map { $_->keywords }  @{$self->my_plugins};
+  my @a = map { $_->keywords }  @{$self->my_plugins} ;
 }
 
 sub who_matches {
 	my ($self, $word) = @_;
 	return first(grep {$_->matches($word) } @{$self->my_plugins});
 }
-
-sub foo {
-	'hola'
-}
-
-sub first {
-	return $_[0];
-}
-
-
-#sub accepts {
-	#my ($self, $word)= @_;
-#}
 
 #no Moose;
 #__PACKAGE__->meta->make_immutable;

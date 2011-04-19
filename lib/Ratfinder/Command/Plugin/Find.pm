@@ -2,6 +2,8 @@ package Ratfinder::Command::Plugin::Find;
 use Moose::Role;
 use feature ':5.10';
 
+has configfile => (is => 'rw', isa => 'Str', default => '/home/kidd/.rf2config');
+
 sub keywords { qw/find gen/ } ;
 
 sub foo {
@@ -22,6 +24,8 @@ sub find {
         say "@res";
         close $file;
 }
+
+
 
 #__PACKAGE__->meta->make_immutable;
 1; # End of Ratfinder::Plugin::Dictionary;
